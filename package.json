@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@code-hike/mdx": "^0.8.3",
+    "@mdx-js/loader": "^2.3.0",
+    "@mdx-js/node-loader": "^2.3.0",
+    "@next/mdx": "^13.4.1",
+    "next": "^13.4.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

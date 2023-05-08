@@ -1,0 +1,85 @@
+## Installation
+```shellscript
+mkdir codeHike && cd codeHike
+```
+下載套件
+```shellscript
+npm install next react react-dom @next/mdx @mdx-js/loader @code-hike/mdx
+```
+我們使用next 與@next/mdx 來編譯我們的 mdx 檔案，然後透過 @code-hike來remark
+
+<CH.Code>
+```javascript next.config.js
+const theme = require("shiki/themes/nord.json")
+const {
+  remarkCodeHike,
+} = require("@code-hike/mdx")
+
+const withMDX = require("@next/mdx")({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [
+      [remarkCodeHike, { theme }]
+    ],
+  },
+})
+
+module.exports = withMDX({
+  pageExtensions: [
+    "ts", "tsx", "js", 
+    "jsx", "md", "mdx"
+  ],
+})
+
+```
+```javascript pages/_app.js
+import "@code-hike/mdx/dist/index.css"
+import index from './index.mdx'
+
+function MyApp({ Component, pageProps }) {
+  return <Component {...pageProps} />
+}
+
+export default MyApp
+```
+
+```mdx pages/index.js
+
+import Code from './Code.mdx'
+function index(){
+  const style = {width: '700px', margin:'auto '}
+  return (
+      <div  style={style}> 
+      <Code/>
+      </div>
+  )
+}
+export default index;
+```
+
+```javascript mdx-components.tsx
+import type { MDXComponents } from 'mdx/types';
+ 
+// This file allows you to provide custom React components
+// to be used in MDX files. You can import and use any
+// React component you want, including components from
+// other libraries.
+ 
+// This file is required to use MDX in `app` directory.
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+  return {
+    // Allows customizing built-in components, e.g. to add styling.
+    // h1: ({ children }) => <h1 style={{ fontSize: "100px" }}>{children}</h1>,
+    ...components,
+  };
+}
+
+```
+
+```markdown Code.mdx
+
+```
+</CH.Code>
+
+
+
